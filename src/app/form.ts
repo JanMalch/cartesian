@@ -29,6 +29,22 @@ export const fields: FormlyFieldConfig[] = [
     key: 'inputs',
     type: 'repeat',
     fieldArray: inputField,
+    defaultValue: [
+      {
+        label: "a",
+        values: [
+          "false",
+          "true",
+        ]
+      },
+      {
+        label: "b",
+        values: [
+          "false",
+          "true",
+        ]
+      },
+    ],
     props: {
       addText: 'Add input',
       label: 'Inputs',
