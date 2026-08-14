@@ -8,11 +8,17 @@ export interface CartesianRequest {
   readonly inputs: ReadonlyArray<InputDefinition>;
 }
 
+export function isCartesianInput(value: unknown): value is Omit<CartesianRequest, 'id'> {
+  if (value == null || typeof value !== 'object') {
+    return false;
+  }
+  return Array.isArray((value as any).inputs);
+}
+
 export interface CartesianResult {
   readonly id: number;
   readonly items: ReadonlyArray<CartesianResultItem>
 }
 export interface CartesianResultItem {
-  readonly label: string;
-  readonly value: string;
+  readonly [label: string]: string;
 }
