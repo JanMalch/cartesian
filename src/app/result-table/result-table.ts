@@ -2,10 +2,12 @@ import { Component, computed, input, linkedSignal, output, signal } from '@angul
 import { CartesianResult } from '../models';
 import { form, FormField } from '@angular/forms/signals';
 import { JsonPipe } from '@angular/common';
+import { formatAsMarkdown } from '../formatters';
 
 export interface ExtraColumn {
   readonly name: string;
   readonly type: 'text' | 'checkbox';
+  readonly format: Array<'bold' | 'italic'>;
 }
 
 @Component({
@@ -18,8 +20,8 @@ export class ResultTable {
   readonly useCheckColumn = input(true);
   readonly extraColumns = input<ExtraColumn[]>([
     // FIXME: temporary
-    { name: 'Valid?', type: 'checkbox' },
-    { name: 'Meaning', type: 'text' },
+    { name: 'Valid?', type: 'checkbox', format: [] },
+    { name: 'Meaning', type: 'text', format: ['bold'] },
   ]);
   readonly cartesianResult = input<CartesianResult | null>(null);
   protected readonly tableResult = linkedSignal(() => {
@@ -40,4 +42,8 @@ export class ResultTable {
     }
     return Object.keys(r.items[0]);
   });
+
+  protected readonly markdown = computed(() =>
+    formatAsMarkdown(this.extraColumns(), this.tableResult().items),
+  );
 }
