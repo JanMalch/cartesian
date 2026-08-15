@@ -22,3 +22,18 @@ export interface CartesianResult {
 export interface CartesianResultItem {
   readonly [label: string]: string;
 }
+
+export interface ExtraColumn {
+  readonly name: string;
+  readonly type: 'text' | 'checkbox';
+  readonly format: Array<'bold' | 'italic'>;
+}
+
+export interface TableResultItem {
+  readonly result: Record<string, string>;
+  readonly extras: Record<string, string | boolean>;
+}
+
+export interface TableResult {
+  readonly items: ReadonlyArray<TableResultItem>;
+}

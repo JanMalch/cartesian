@@ -1,8 +1,8 @@
-import { ExtraColumn } from './result-table/result-table';
+import { TableResult, ExtraColumn } from './models';
 
 export function formatAsMarkdown(
   extraColumns: ExtraColumn[],
-  tableResult: Array<{ result: Record<string, string>; extras: Record<string, string | boolean> }>,
+  tableResult: TableResult["items"],
 ): string {
   return format(extraColumns, tableResult, {
     headerDelimiter: '|',
@@ -16,7 +16,7 @@ export function formatAsMarkdown(
 
 export function formatAsAtlassian(
   extraColumns: ExtraColumn[],
-  tableResult: Array<{ result: Record<string, string>; extras: Record<string, string | boolean> }>,
+  tableResult: TableResult["items"],
 ): string {
   return format(extraColumns, tableResult, {
     headerDelimiter: '||',
@@ -30,7 +30,7 @@ export function formatAsAtlassian(
 
 function format(
   extraColumns: ExtraColumn[],
-  tableResult: Array<{ result: Record<string, string>; extras: Record<string, string | boolean> }>,
+  tableResult: TableResult["items"],
   options: {
     headerDelimiter: string,
     afterHeaders: (columnCount: number) => string,

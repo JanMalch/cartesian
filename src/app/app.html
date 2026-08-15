@@ -5,4 +5,11 @@
   <button type="submit" class="btn btn-default">Submit</button>
 </form>
 
-<app-result-table [cartesianResult]="result | async"></app-result-table>
+<app-result-table [cartesianResult]="result | async"
+  [extraColumns]="extraColumns()"
+(tableResult)="tableResult.set($event)"
+></app-result-table>
+
+<span>Copy markup:</span>
+<button matButton="filled" [cdkCopyToClipboard]="markdown()">Markdown</button>
+<button matButton="filled" [cdkCopyToClipboard]="atlassian()">Jira/Confluence</button>

@@ -1,4 +1,4 @@
-<pre>{{ tableResult() | json }}</pre>
+<pre>{{ formData() | json }}</pre>
 
 <table>
   <thead>
@@ -13,7 +13,7 @@
   </thead>
 
   <tbody>
-    @for (item of tableResult()?.items; let i = $index; track i) {
+    @for (item of formData()?.items; let i = $index; track i) {
       <tr>
         @for (label of labels(); track label) {
           <td>{{ item.result[label] }}</td>
@@ -35,4 +35,3 @@
   </tbody>
 </table>
 
-<pre>{{ markdown() }}</pre>

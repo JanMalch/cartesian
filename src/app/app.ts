@@ -1,18 +1,21 @@
-import { Component, signal, inject, OnInit } from '@angular/core';
+import { Component, signal, inject, OnInit, computed } from '@angular/core';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { FormControl, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { CdkCopyToClipboard } from '@angular/cdk/clipboard';
 import { FormlyForm, FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 import { fields as formFields } from './form';
 import { AsyncPipe, JsonPipe } from '@angular/common';
 import { Cartesian } from './cartesian';
 import { startWith, switchMap, tap, filter } from 'rxjs';
-import { isCartesianInput } from './models';
+import { isCartesianInput, TableResult, ExtraColumn } from './models';
 import { ResultTable } from './result-table/result-table';
+import { formatAsAtlassian, formatAsMarkdown } from './formatters';
 
 @Component({
   selector: 'app-root',
-  imports: [ReactiveFormsModule, FormlyForm, JsonPipe, AsyncPipe, ResultTable],
+  imports: [ReactiveFormsModule, FormlyForm, JsonPipe, AsyncPipe, ResultTable, MatButton, CdkCopyToClipboard],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
@@ -23,6 +26,20 @@ export class App implements OnInit {
   private service = inject(Cartesian);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
+  protected tableResult = signal<TableResult | null>(null);
+  readonly extraColumns = signal<ExtraColumn[]>([
+    // FIXME: temporary
+    { name: 'Valid?', type: 'checkbox', format: [] },
+    { name: 'Meaning', type: 'text', format: ['bold'] },
+  ]);
+  protected markdown = computed(() => {
+    const res = this.tableResult();
+    return res ? formatAsMarkdown(this.extraColumns(), res.items) : '';
+  })
+  protected atlassian = computed(() => {
+    const res = this.tableResult();
+    return res ? formatAsAtlassian(this.extraColumns(), res.items) : '';
+  })
 
   result = this.form.valueChanges.pipe(
     tap((x) => this.storeInUrl(x)),
