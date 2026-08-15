@@ -4,7 +4,6 @@ import { form, FormField } from '@angular/forms/signals';
 import { JsonPipe } from '@angular/common';
 import { formatAsMarkdown } from '../formatters';
 
-
 @Component({
   selector: 'app-result-table',
   imports: [JsonPipe, FormField],

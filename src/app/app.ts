@@ -15,7 +15,15 @@ import { formatAsAtlassian, formatAsMarkdown } from './formatters';
 
 @Component({
   selector: 'app-root',
-  imports: [ReactiveFormsModule, FormlyForm, JsonPipe, AsyncPipe, ResultTable, MatButton, CdkCopyToClipboard],
+  imports: [
+    ReactiveFormsModule,
+    FormlyForm,
+    JsonPipe,
+    AsyncPipe,
+    ResultTable,
+    MatButton,
+    CdkCopyToClipboard,
+  ],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
@@ -35,11 +43,11 @@ export class App implements OnInit {
   protected markdown = computed(() => {
     const res = this.tableResult();
     return res ? formatAsMarkdown(this.extraColumns(), res.items) : '';
-  })
+  });
   protected atlassian = computed(() => {
     const res = this.tableResult();
     return res ? formatAsAtlassian(this.extraColumns(), res.items) : '';
-  })
+  });
 
   result = this.form.valueChanges.pipe(
     tap((x) => this.storeInUrl(x)),

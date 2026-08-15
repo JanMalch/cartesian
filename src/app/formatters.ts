@@ -2,7 +2,7 @@ import { TableResult, ExtraColumn } from './models';
 
 export function formatAsMarkdown(
   extraColumns: ExtraColumn[],
-  tableResult: TableResult["items"],
+  tableResult: TableResult['items'],
 ): string {
   return format(extraColumns, tableResult, {
     headerDelimiter: '|',
@@ -10,13 +10,13 @@ export function formatAsMarkdown(
     italic: '_',
     checkmark: '✅',
     crossmark: '❌',
-    afterHeaders: (columnCount) => '|' + (`---|`.repeat(columnCount)),
-  })
+    afterHeaders: (columnCount) => '|' + `---|`.repeat(columnCount),
+  });
 }
 
 export function formatAsAtlassian(
   extraColumns: ExtraColumn[],
-  tableResult: TableResult["items"],
+  tableResult: TableResult['items'],
 ): string {
   return format(extraColumns, tableResult, {
     headerDelimiter: '||',
@@ -25,19 +25,19 @@ export function formatAsAtlassian(
     checkmark: '(/)',
     crossmark: '(x)',
     afterHeaders: () => '',
-  })
+  });
 }
 
 function format(
   extraColumns: ExtraColumn[],
-  tableResult: TableResult["items"],
+  tableResult: TableResult['items'],
   options: {
-    headerDelimiter: string,
-    afterHeaders: (columnCount: number) => string,
-    bold: string,
-    italic: string,
-    checkmark: string,
-    crossmark: string,
+    headerDelimiter: string;
+    afterHeaders: (columnCount: number) => string;
+    bold: string;
+    italic: string;
+    checkmark: string;
+    crossmark: string;
   },
 ): string {
   if (tableResult.length === 0 || !tableResult[0].result) {
@@ -52,7 +52,7 @@ function format(
     result += ` ${col.name} ${options.headerDelimiter}`;
   }
   result += '\n';
-  result += options.afterHeaders(resultKeys.length + extraColumns.length)
+  result += options.afterHeaders(resultKeys.length + extraColumns.length);
 
   for (const tresult of tableResult) {
     result += '\n|';
