@@ -8,10 +8,11 @@ import { AsyncPipe, JsonPipe } from '@angular/common';
 import { Cartesian } from './cartesian';
 import { startWith, switchMap, tap, filter } from 'rxjs';
 import { isCartesianInput } from './models';
+import { ResultTable } from './result-table/result-table';
 
 @Component({
   selector: 'app-root',
-  imports: [ReactiveFormsModule, FormlyForm, JsonPipe, AsyncPipe],
+  imports: [ReactiveFormsModule, FormlyForm, JsonPipe, AsyncPipe, ResultTable],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
