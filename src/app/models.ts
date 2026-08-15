@@ -17,7 +17,7 @@ export function isCartesianInput(value: unknown): value is Omit<CartesianRequest
 
 export interface CartesianResult {
   readonly id: number;
-  readonly items: ReadonlyArray<CartesianResultItem>
+  readonly items: ReadonlyArray<CartesianResultItem>;
 }
 export interface CartesianResultItem {
   readonly [label: string]: string;

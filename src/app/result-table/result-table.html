@@ -7,41 +7,30 @@
         <th>{{ label }}</th>
       }
       @for (col of extraColumns(); track col.name) {
-      <th>{{ col.name }}</th>
+        <th>{{ col.name }}</th>
       }
     </tr>
-
-
   </thead>
 
   <tbody>
-
-      @for (item of tableResult()?.items; let i = $index; track i) {
-
-    <tr>
-      @for (label of labels(); track label) {
-      <td>{{ item.result[label] }}</td>
-      }
-      @for (col of extraColumns(); track col.name) {
-      <td>
-
-        @switch (col.type) {
-        @case ('checkbox') {
-            <input type="checkbox"  [formField]="$any(resultForm.items[i].extras[col.name])">
+    @for (item of tableResult()?.items; let i = $index; track i) {
+      <tr>
+        @for (label of labels(); track label) {
+          <td>{{ item.result[label] }}</td>
         }
-        @default {
-            <input type="text"  [formField]="$any(resultForm.items[i].extras[col.name])">
+        @for (col of extraColumns(); track col.name) {
+          <td>
+            @switch (col.type) {
+              @case ('checkbox') {
+                <input type="checkbox" [formField]="$any(resultForm.items[i].extras[col.name])" />
+              }
+              @default {
+                <input type="text" [formField]="$any(resultForm.items[i].extras[col.name])" />
+              }
+            }
+          </td>
         }
-        }
-
-      </td>
-      }
-    </tr>
-
+      </tr>
     }
-
-
   </tbody>
-
 </table>
-

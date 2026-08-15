@@ -25,18 +25,18 @@ export class App implements OnInit {
   private route = inject(ActivatedRoute);
 
   result = this.form.valueChanges.pipe(
-    tap(x => this.storeInUrl(x)),
+    tap((x) => this.storeInUrl(x)),
     startWith(this.form.getRawValue()),
     filter(isCartesianInput),
-    switchMap(x => this.service.compute(x))
-  )
+    switchMap((x) => this.service.compute(x)),
+  );
 
   ngOnInit(): void {
     // TODO: use ActivatedRoute?
     const params = new URL(window.location.href).searchParams;
     const raw = params.get('s');
     if (!raw) {
-      return
+      return;
     }
     this.model = JSON.parse(atob(raw));
   }
@@ -45,7 +45,7 @@ export class App implements OnInit {
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { s: btoa(JSON.stringify(data)) },
-      queryParamsHandling: "merge",
+      queryParamsHandling: 'merge',
     });
   }
 

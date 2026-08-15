@@ -15,14 +15,14 @@ import { MatButtonModule } from '@angular/material/button';
         <p>{{ props.description }}</p>
       }
       @for (field of field.fieldGroup; let i = $index; track i) {
-      <div>
-        <formly-field [field]="field"></formly-field>
         <div>
-          <button matIconButton type="button" (click)="remove(i)">
-            <mat-icon>remove</mat-icon>
-          </button>
+          <formly-field [field]="field"></formly-field>
+          <div>
+            <button matIconButton type="button" (click)="remove(i)">
+              <mat-icon>remove</mat-icon>
+            </button>
+          </div>
         </div>
-      </div>
       }
       <div>
         <button matButton type="button" (click)="add()">{{ props['addText'] }}</button>
@@ -32,5 +32,4 @@ import { MatButtonModule } from '@angular/material/button';
   standalone: true,
   imports: [FormlyField, MatIconModule, MatButtonModule],
 })
-export class RepeatTypeComponent extends FieldArrayType { }
-
+export class RepeatTypeComponent extends FieldArrayType {}

@@ -1,6 +1,6 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { provideFormlyCore } from '@ngx-formly/core'
+import { provideFormlyCore } from '@ngx-formly/core';
 import { withFormlyMaterial } from '@ngx-formly/material';
 
 import { RepeatTypeComponent } from './repeat-section.type';
@@ -17,5 +17,5 @@ export const appConfig: ApplicationConfig = {
         validationMessages: [{ name: 'required', message: 'This field is required' }],
       },
     ]),
-  ]
+  ],
 };

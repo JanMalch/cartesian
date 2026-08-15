@@ -15,23 +15,22 @@ export interface ExtraColumn {
   styleUrl: './result-table.scss',
 })
 export class ResultTable {
-
   readonly useCheckColumn = input(true);
   readonly extraColumns = input<ExtraColumn[]>([
-
     // FIXME: temporary
     { name: 'Valid?', type: 'checkbox' },
     { name: 'Meaning', type: 'text' },
-
   ]);
   readonly cartesianResult = input<CartesianResult | null>(null);
   protected readonly tableResult = linkedSignal(() => {
-    const extras = Object.fromEntries(this.extraColumns().map(c => ([c.name, c.type === 'checkbox' ? false : ''])))
+    const extras = Object.fromEntries(
+      this.extraColumns().map((c) => [c.name, c.type === 'checkbox' ? false : '']),
+    );
     return {
       // items: Array(this.cartesianResult()?.items ?? 0).fill(0).map(_ => ({ ...extras }))
-      items: (this.cartesianResult()?.items ?? []).map(result => ({ result, extras }))
-    }
-  })
+      items: (this.cartesianResult()?.items ?? []).map((result) => ({ result, extras })),
+    };
+  });
   protected readonly resultForm = form(this.tableResult);
 
   protected readonly labels = computed(() => {
@@ -41,5 +40,4 @@ export class ResultTable {
     }
     return Object.keys(r.items[0]);
   });
-
 }
