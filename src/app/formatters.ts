@@ -1,15 +1,24 @@
 import { TableResult, ExtraColumn } from './models';
 
+export function getSourceLink(): string {
+  if (typeof window === 'undefined') {
+    return '';
+  }
+  return window.location.href;
+}
+
 export function formatAsMarkdown(
   extraColumns: ExtraColumn[],
   tableResult: TableResult['items'],
+  sourceLink: string = getSourceLink(),
 ): string {
-  return format(extraColumns, tableResult, {
+  return format(extraColumns, tableResult, sourceLink, {
     headerDelimiter: '|',
     bold: '**',
     italic: '_',
     checkmark: '✅',
     crossmark: '❌',
+    link: (text, url) => `[${text}](${url})`,
     afterHeaders: (columnCount) => '|' + `---|`.repeat(columnCount),
   });
 }
@@ -17,13 +26,15 @@ export function formatAsMarkdown(
 export function formatAsAtlassian(
   extraColumns: ExtraColumn[],
   tableResult: TableResult['items'],
+  sourceLink: string = getSourceLink(),
 ): string {
-  return format(extraColumns, tableResult, {
+  return format(extraColumns, tableResult, sourceLink, {
     headerDelimiter: '||',
     bold: '*',
     italic: '_',
     checkmark: '(/)',
     crossmark: '(x)',
+    link: (text, url) => `[${text}|${url}]`,
     afterHeaders: () => '',
   });
 }
@@ -31,9 +42,11 @@ export function formatAsAtlassian(
 function format(
   extraColumns: ExtraColumn[],
   tableResult: TableResult['items'],
+  sourceLink: string,
   options: {
     headerDelimiter: string;
     afterHeaders: (columnCount: number) => string;
+    link: (text: string, url: string) => string;
     bold: string;
     italic: string;
     checkmark: string;
@@ -97,6 +110,10 @@ function format(
       }
       result += ` ${content} |`;
     }
+  }
+
+  if (sourceLink) {
+    result += `\n\n${options.link('Edit Table', sourceLink)}`;
   }
 
   return result;
