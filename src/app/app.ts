@@ -67,6 +67,7 @@ export class App implements OnInit {
   }
 
   private storeInUrl(data: unknown) {
+    // FIXME: put in the URL without creating backstack entry
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { s: btoa(JSON.stringify(data)) },
