@@ -5,6 +5,14 @@
   <button type="submit" class="btn btn-default">Submit</button>
 </form>
 
+<app-inputs
+  [form]="forx.inputs"
+  [model]="modex().inputs"
+  (modelChange)="updateInputs($event)"
+></app-inputs>
+
+<pre>{{ modex() | json }}</pre>
+
 <app-result-table
   [cartesianResult]="result | async"
   [extraColumns]="extraColumns()"

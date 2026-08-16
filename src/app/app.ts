@@ -1,7 +1,8 @@
-import { Component, signal, inject, OnInit, computed } from '@angular/core';
+import { Component, signal, inject, OnInit, computed, model } from '@angular/core';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { FormControl, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
+import { form } from '@angular/forms/signals';
 import { MatButton } from '@angular/material/button';
 import { CdkCopyToClipboard } from '@angular/cdk/clipboard';
 import { FormlyForm, FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
@@ -12,6 +13,8 @@ import { startWith, switchMap, tap, filter } from 'rxjs';
 import { isCartesianInput, TableResult, ExtraColumn } from './models';
 import { ResultTable } from './result-table/result-table';
 import { formatAsAtlassian, formatAsMarkdown } from './formatters';
+import { InputsFormComponent } from './inputs/inputs';
+import { buildInputsSection, createInputsModel, Inputs } from './inputs/inputs.models';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +23,7 @@ import { formatAsAtlassian, formatAsMarkdown } from './formatters';
     FormlyForm,
     JsonPipe,
     AsyncPipe,
+    InputsFormComponent,
     ResultTable,
     MatButton,
     CdkCopyToClipboard,
@@ -28,6 +32,18 @@ import { formatAsAtlassian, formatAsMarkdown } from './formatters';
   styleUrl: './app.scss',
 })
 export class App implements OnInit {
+  readonly modex = signal({
+    inputs: createInputsModel()(),
+  });
+
+  readonly forx = form(this.modex, (s) => {
+    buildInputsSection(s.inputs);
+  });
+
+  updateInputs(inputs: Inputs) {
+    this.modex.update((m) => ({ ...m, inputs }));
+  }
+
   form = new FormGroup({});
   model = {};
   fields = formFields;

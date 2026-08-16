@@ -1,0 +1,33 @@
+<div>
+  @for (input of form(); let i = $index; track i) {
+    <div class="input">
+      <div class="label">
+        <mat-form-field>
+          <mat-label>Input Label</mat-label>
+          <input matInput [formField]="input.label" />
+
+          <button matIconButton matSuffix (click)="removeInput(i)" aria-label="Remove input">
+            <mat-icon>delete_sweep</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+      <div class="spacer" aria-hidden="true">
+        <mat-icon>arrow_right_alt</mat-icon>
+      </div>
+      <div class="values">
+        @for (value of input.values; let j = $index; track j) {
+          <mat-form-field>
+            <mat-label>Value #{{ j + 1 }}</mat-label>
+            <input matInput [formField]="value" />
+
+            <button matIconButton matSuffix (click)="removeValue(i, j)" aria-label="Remove value">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-form-field>
+        }
+        <button matButton (click)="addValue(i)">Add Value</button>
+      </div>
+    </div>
+  }
+  <button matButton (click)="addInput()">Add Input</button>
+</div>
