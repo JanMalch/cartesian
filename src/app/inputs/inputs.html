@@ -29,5 +29,5 @@
       </div>
     </div>
   }
-  <button matButton (click)="addInput()">Add Input</button>
+  <button matButton [disabled]="addInputDisabled()" (click)="addInput()">Add Input</button>
 </div>

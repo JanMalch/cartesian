@@ -1,5 +1,4 @@
-import { Component, input, model, output, WritableSignal } from '@angular/core';
-import { FormControl, ReactiveFormsModule, FormBuilder } from '@angular/forms';
+import { Component, computed, input, model, output, WritableSignal } from '@angular/core';
 import { FormField, FieldTree } from '@angular/forms/signals';
 import { Inputs } from './inputs.models';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -16,6 +15,8 @@ import { MatIcon } from '@angular/material/icon';
 export class InputsFormComponent {
   readonly form = input.required<FieldTree<Inputs>>();
   readonly model = model.required<Inputs>();
+
+  protected readonly addInputDisabled = computed(() => this.model().some((x) => !x.label?.trim()));
 
   protected addInput() {
     this.model.update((x) => [
