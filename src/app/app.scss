@@ -4,7 +4,7 @@
   grid-template-rows: 1fr auto;
   grid-template-areas:
     'inputs results'
-    'inputs actions';
+    'inputs outputs';
   height: 100%;
 }
 
@@ -24,6 +24,9 @@ section {
   border-bottom: 1px solid #ddd;
 }
 
-#section-actions {
-  grid-area: actions;
+#section-outputs {
+  grid-area: outputs;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
