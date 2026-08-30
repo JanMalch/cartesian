@@ -19,11 +19,12 @@ export class InputsFormComponent {
   protected readonly addInputDisabled = computed(() => this.model().some((x) => !x.label?.trim()));
 
   protected addInput() {
+    // TODO: focus "input label" input element
     this.model.update((x) => [
       ...x,
       {
         label: '',
-        values: ['', ''],
+        values: ['true', 'false'],
       },
     ]);
   }
