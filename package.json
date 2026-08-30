@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "format": "npx prettier --write .",
-    "prepare": "husky"
+    "prepare": "npx husky"
   },
   "private": true,
   "packageManager": "npm@11.18.0",
