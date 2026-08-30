@@ -1,0 +1,29 @@
+:host {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr auto;
+  grid-template-areas:
+    'inputs results'
+    'inputs actions';
+  height: 100%;
+}
+
+section {
+  padding: 2rem;
+  min-height: 0;
+  overflow: hidden auto;
+}
+
+#section-inputs {
+  grid-area: inputs;
+  border-right: 1px solid #ddd;
+}
+
+#section-results {
+  grid-area: results;
+  border-bottom: 1px solid #ddd;
+}
+
+#section-actions {
+  grid-area: actions;
+}

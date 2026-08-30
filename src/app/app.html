@@ -1,15 +1,21 @@
-<app-inputs
-  [form]="forx.inputs"
-  [model]="modex().inputs"
-  (modelChange)="updateInputs($event)"
-></app-inputs>
+<section id="section-inputs">
+  <app-inputs
+    [form]="forx.inputs"
+    [model]="modex().inputs"
+    (modelChange)="updateInputs($event)"
+  ></app-inputs>
+</section>
 
-<app-result-table
-  [cartesianResult]="result.value() || null"
-  [extraColumns]="extraColumns()"
-  (tableResult)="tableResult.set($event)"
-></app-result-table>
+<section id="section-results">
+  <app-result-table
+    [cartesianResult]="result.value() || null"
+    [extraColumns]="extraColumns()"
+    (tableResult)="tableResult.set($event)"
+  ></app-result-table>
+</section>
 
-<span>Copy markup:</span>
-<button matButton="filled" [cdkCopyToClipboard]="markdown()">Markdown</button>
-<button matButton="filled" [cdkCopyToClipboard]="atlassian()">Jira/Confluence</button>
+<section id="section-outputs">
+  <span>Copy markup:</span>
+  <button matButton="filled" [cdkCopyToClipboard]="markdown()">Markdown</button>
+  <button matButton="filled" [cdkCopyToClipboard]="atlassian()">Jira/Confluence</button>
+</section>

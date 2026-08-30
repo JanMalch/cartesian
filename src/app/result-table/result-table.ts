@@ -1,12 +1,10 @@
-import { Component, computed, effect, input, linkedSignal, output, signal } from '@angular/core';
+import { Component, computed, effect, input, linkedSignal, output } from '@angular/core';
 import { CartesianResult, ExtraColumn, TableResult } from '../models';
 import { form, FormField } from '@angular/forms/signals';
-import { JsonPipe } from '@angular/common';
-import { formatAsMarkdown } from '../formatters';
 
 @Component({
   selector: 'app-result-table',
-  imports: [JsonPipe, FormField],
+  imports: [FormField],
   templateUrl: './result-table.html',
   styleUrl: './result-table.scss',
 })
