@@ -13,7 +13,8 @@
   }
 }
 
-.mat-icon {
+.mat-icon,
+.index {
   opacity: 0.4;
 }
 
@@ -22,6 +23,7 @@
   border-bottom: 1px solid #ddd;
 }
 
+.index,
 .label,
 .extra {
   padding: 0.5rem;

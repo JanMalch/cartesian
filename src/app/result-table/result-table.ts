@@ -44,7 +44,7 @@ export class ResultTable {
   });
 
   protected readonly gridTemplate = computed(() => {
-    let result = `repeat(${this.labels().length}, auto) auto `;
+    let result = `auto repeat(${this.labels().length}, auto) auto `;
     for (const extra of this.extraColumns()) {
       result += extra.type === 'checkbox' ? 'auto ' : '1fr ';
     }

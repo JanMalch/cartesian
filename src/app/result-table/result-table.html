@@ -1,9 +1,10 @@
 <div class="results" [style.grid-template-columns]="gridTemplate()">
   <div class="row header">
+    <div aria-hidden="true"></div>
     @for (label of labels(); track label) {
       <div class="label header__label">{{ label }}</div>
     }
-    <div class="divider"></div>
+    <div aria-hidden="true"></div>
     @for (col of extraColumns(); track col.name) {
       <div class="extra header__extra">{{ col.name }}</div>
     }
@@ -11,6 +12,7 @@
 
   @for (item of formData()?.items; let i = $index; track i) {
     <div class="row item">
+      <div class="index">#{{ i + 1 }}</div>
       @for (label of labels(); track label) {
         <div class="label item__label">{{ item.result[label] }}</div>
       }
