@@ -5,10 +5,18 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
+import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 
 @Component({
   selector: 'app-result-table',
-  imports: [FormField, MatInputModule, MatFormFieldModule, MatCheckboxModule, MatIconModule],
+  imports: [
+    FormField,
+    MatInputModule,
+    MatFormFieldModule,
+    MatCheckboxModule,
+    MatIconModule,
+    CdkTextareaAutosize,
+  ],
   templateUrl: './result-table.html',
   styleUrl: './result-table.scss',
 })

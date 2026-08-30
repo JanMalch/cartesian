@@ -25,7 +25,8 @@
               <mat-form-field>
                 <textarea
                   matInput
-                  rows="1"
+                  cdkTextareaAutosize
+                  cdkAutosizeMinRows="1"
                   [formField]="$any(resultForm.items[i].extras[col.name])"
                 ></textarea>
               </mat-form-field>
