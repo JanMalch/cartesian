@@ -1,10 +1,14 @@
 import { Component, computed, effect, input, linkedSignal, output } from '@angular/core';
 import { CartesianResult, ExtraColumn, TableResult } from '../models';
 import { form, FormField } from '@angular/forms/signals';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-result-table',
-  imports: [FormField],
+  imports: [FormField, MatInputModule, MatFormFieldModule, MatCheckboxModule, MatIconModule],
   templateUrl: './result-table.html',
   styleUrl: './result-table.scss',
 })
@@ -29,6 +33,14 @@ export class ResultTable {
       return [];
     }
     return Object.keys(r.items[0]);
+  });
+
+  protected readonly gridTemplate = computed(() => {
+    let result = `repeat(${this.labels().length}, auto) auto `;
+    for (const extra of this.extraColumns()) {
+      result += extra.type === 'checkbox' ? 'auto ' : '1fr ';
+    }
+    return result;
   });
 
   constructor() {

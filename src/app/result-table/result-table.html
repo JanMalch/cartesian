@@ -1,34 +1,38 @@
-<table>
-  <thead>
-    <tr>
-      @for (label of labels(); track label) {
-        <th>{{ label }}</th>
-      }
-      @for (col of extraColumns(); track col.name) {
-        <th>{{ col.name }}</th>
-      }
-    </tr>
-  </thead>
-
-  <tbody>
-    @for (item of formData()?.items; let i = $index; track i) {
-      <tr>
-        @for (label of labels(); track label) {
-          <td>{{ item.result[label] }}</td>
-        }
-        @for (col of extraColumns(); track col.name) {
-          <td>
-            @switch (col.type) {
-              @case ('checkbox') {
-                <input type="checkbox" [formField]="$any(resultForm.items[i].extras[col.name])" />
-              }
-              @default {
-                <input type="text" [formField]="$any(resultForm.items[i].extras[col.name])" />
-              }
-            }
-          </td>
-        }
-      </tr>
+<div class="results" [style.grid-template-columns]="gridTemplate()">
+  <div class="row header">
+    @for (label of labels(); track label) {
+      <div class="label header__label">{{ label }}</div>
     }
-  </tbody>
-</table>
+    <div class="divider"></div>
+    @for (col of extraColumns(); track col.name) {
+      <div class="extra header__extra">{{ col.name }}</div>
+    }
+  </div>
+
+  @for (item of formData()?.items; let i = $index; track i) {
+    <div class="row item">
+      @for (label of labels(); track label) {
+        <div class="label item__label">{{ item.result[label] }}</div>
+      }
+      <div class="divider"><mat-icon>chevron_right</mat-icon></div>
+      @for (col of extraColumns(); track col.name) {
+        <div class="extra item__extra">
+          @switch (col.type) {
+            @case ('checkbox') {
+              <mat-checkbox [formField]="$any(resultForm.items[i].extras[col.name])"></mat-checkbox>
+            }
+            @default {
+              <mat-form-field>
+                <textarea
+                  matInput
+                  rows="1"
+                  [formField]="$any(resultForm.items[i].extras[col.name])"
+                ></textarea>
+              </mat-form-field>
+            }
+          }
+        </div>
+      }
+    </div>
+  }
+</div>

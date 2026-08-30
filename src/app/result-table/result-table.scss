@@ -1,0 +1,40 @@
+.results {
+  display: grid;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / -1;
+  align-items: center;
+  border-bottom: 1px dashed #ddd;
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.mat-icon {
+  opacity: 0.4;
+}
+
+.header {
+  font-weight: 500;
+  border-bottom: 1px solid #ddd;
+}
+
+.label,
+.extra {
+  padding: 0.5rem;
+}
+
+.label + .extra {
+  border-left: 1px solid #ddd;
+}
+
+mat-form-field {
+  width: 100%;
+
+  & ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+    display: none;
+  }
+}
