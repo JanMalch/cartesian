@@ -1,8 +1,9 @@
 :host {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr auto;
+  grid-template-rows: auto 1fr auto;
   grid-template-areas:
+    'welcome results'
     'inputs results'
     'inputs outputs';
   height: 100%;
@@ -12,6 +13,12 @@ section {
   padding: 2rem;
   min-height: 0;
   overflow: hidden auto;
+}
+
+#section-welcome {
+  grid-area: welcome;
+  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #ddd;
 }
 
 #section-inputs {
