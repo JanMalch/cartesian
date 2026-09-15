@@ -34,6 +34,28 @@ section {
 #section-outputs {
   grid-area: outputs;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 1rem;
+}
+
+@media (max-width: 600px) {
+  :host {
+    display: block;
+  }
+
+  section {
+    padding: 1rem;
+    overflow: auto;
+  }
+
+  #section-welcome,
+  #section-inputs {
+    border-bottom: 1px solid #ddd;
+    border-right: none;
+  }
+
+  #section-outputs > span {
+    flex: 1 0 100%;
+  }
 }
