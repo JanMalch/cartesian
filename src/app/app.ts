@@ -1,18 +1,15 @@
-import { Component, signal, inject, OnInit, computed, model, resource } from '@angular/core';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
-import { FormControl, ReactiveFormsModule, FormBuilder } from '@angular/forms';
-import { FormGroup } from '@angular/forms';
+import { Component, signal, inject, OnInit, computed, resource } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 import { form } from '@angular/forms/signals';
 import { MatButton } from '@angular/material/button';
 import { CdkCopyToClipboard } from '@angular/cdk/clipboard';
 import { Cartesian } from './cartesian';
-import { startWith, switchMap, tap, filter } from 'rxjs';
-import { isCartesianInput, TableResult, ExtraColumn } from './models';
+import { TableResult, ExtraColumn } from './models';
 import { ResultTable } from './result-table/result-table';
 import { formatAsAtlassian, formatAsMarkdown } from './formatters';
 import { InputsFormComponent } from './inputs/inputs';
 import { buildInputsSection, createInputsModel, Inputs } from './inputs/inputs.models';
-import { linkedSignal, resourceFromSnapshots, Resource, ResourceSnapshot } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -21,22 +18,22 @@ import { linkedSignal, resourceFromSnapshots, Resource, ResourceSnapshot } from 
   styleUrl: './app.scss',
 })
 export class App implements OnInit {
-  readonly modex = signal({
+  readonly model = signal({
     inputs: createInputsModel()(),
   });
 
-  readonly forx = form(this.modex, (s) => {
+  readonly form = form(this.model, (s) => {
     buildInputsSection(s.inputs);
   });
 
   // TODO: with previous value? https://angular.dev/guide/signals/resource#composing-resources-with-snapshots
   readonly result = resource({
-    params: () => ({ inputs: this.modex() }),
+    params: () => ({ inputs: this.model() }),
     loader: ({ params }) => this.service.compute(params.inputs),
   });
 
   updateInputs(inputs: Inputs) {
-    this.modex.update((m) => ({ ...m, inputs }));
+    this.model.update((m) => ({ ...m, inputs }));
   }
 
   private service = inject(Cartesian);
