@@ -1,12 +1,18 @@
 :host {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto 1fr auto;
-  grid-template-areas:
-    'welcome results'
-    'inputs results'
-    'inputs outputs';
+  grid-template-rows: 1fr;
   height: 100%;
+}
+
+#left {
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+#right {
+  display: grid;
+  grid-template-rows: 1fr auto;
 }
 
 section {
@@ -16,23 +22,19 @@ section {
 }
 
 #section-welcome {
-  grid-area: welcome;
   border-bottom: 1px solid #ddd;
   border-right: 1px solid #ddd;
 }
 
 #section-inputs {
-  grid-area: inputs;
   border-right: 1px solid #ddd;
 }
 
 #section-results {
-  grid-area: results;
   border-bottom: 1px solid #ddd;
 }
 
 #section-outputs {
-  grid-area: outputs;
   display: flex;
   flex-wrap: wrap;
   align-items: center;

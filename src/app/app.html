@@ -1,36 +1,41 @@
-<section id="section-welcome">
-  <h1>Cartesian</h1>
-  <p>
-    <b>For when people keep asking if you have thought of all possibilities.</b>
-    Enter any arbitrary amount of inputs below, together with their set of possible values. The
-    table will show all unique combinations, giving you the option to describe and reason about
-    them. Finally, you can share the table via a share link or copy its markup.
-  </p>
-  <p>
-    <i
-      >Made with 🧠 on <a href="https://github.com/JanMalch/cartesian" rel="noopener">GitHub</a>.</i
-    >
-  </p>
-</section>
+<div id="left">
+  <section id="section-welcome">
+    <h1>Cartesian</h1>
+    <p>
+      <b>For when people keep asking if you have thought of all possibilities.</b>
+      Enter any arbitrary amount of inputs below, together with their set of possible values. The
+      table will show all unique combinations, giving you the option to describe and reason about
+      them. Finally, you can share the table via a share link or copy its markup.
+    </p>
+    <p>
+      <i
+        >Made with 🧠 on
+        <a href="https://github.com/JanMalch/cartesian" rel="noopener">GitHub</a>.</i
+      >
+    </p>
+  </section>
 
-<section id="section-inputs">
-  <app-inputs
-    [form]="forx.inputs"
-    [model]="modex().inputs"
-    (modelChange)="updateInputs($event)"
-  ></app-inputs>
-</section>
+  <section id="section-inputs">
+    <app-inputs
+      [form]="forx.inputs"
+      [model]="modex().inputs"
+      (modelChange)="updateInputs($event)"
+    ></app-inputs>
+  </section>
+</div>
 
-<section id="section-results">
-  <app-result-table
-    [cartesianResult]="result.value() || null"
-    [extraColumns]="extraColumns()"
-    (tableResult)="tableResult.set($event)"
-  ></app-result-table>
-</section>
+<div id="right">
+  <section id="section-results">
+    <app-result-table
+      [cartesianResult]="result.value() || null"
+      [extraColumns]="extraColumns()"
+      (tableResult)="tableResult.set($event)"
+    ></app-result-table>
+  </section>
 
-<section id="section-outputs">
-  <span>Copy markup:</span>
-  <button matButton="filled" [cdkCopyToClipboard]="markdown()">Markdown</button>
-  <button matButton="filled" [cdkCopyToClipboard]="atlassian()">Jira/Confluence</button>
-</section>
+  <section id="section-outputs">
+    <span>Copy markup:</span>
+    <button matButton="filled" [cdkCopyToClipboard]="markdown()">Markdown</button>
+    <button matButton="filled" [cdkCopyToClipboard]="atlassian()">Jira/Confluence</button>
+  </section>
+</div>
