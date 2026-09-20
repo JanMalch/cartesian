@@ -1,0 +1,30 @@
+<div>
+  @for (input of form(); let i = $index; track i) {
+    <div class="input">
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput [formField]="input.name" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Type</mat-label>
+
+        <mat-select [formField]="input.type">
+          <mat-option value="text">Text</mat-option>
+          <mat-option value="checkbox">Checkbox</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Format</mat-label>
+        <mat-select [formField]="input.format" multiple>
+          <mat-option value="bold">Bold</mat-option>
+          <mat-option value="italic">Italic</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button matIconButton matSuffix (click)="removeInput(i)" aria-label="Remove input">
+        <mat-icon>delete_sweep</mat-icon>
+      </button>
+    </div>
+  }
+  <button matButton [disabled]="addExtraDisabled()" (click)="addExtra()">Add Extra</button>
+</div>

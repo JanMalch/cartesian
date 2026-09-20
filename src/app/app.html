@@ -25,6 +25,14 @@
 </div>
 
 <div id="right">
+  <section id="section-extras">
+    <app-extras
+      [form]="form.extras"
+      [model]="model().extras"
+      (modelChange)="updateExtras($event)"
+    ></app-extras>
+  </section>
+
   <section id="section-results">
     <app-result-table
       [cartesianResult]="result.value() || null"

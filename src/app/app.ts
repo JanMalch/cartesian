@@ -10,20 +10,31 @@ import { ResultTable } from './result-table/result-table';
 import { formatAsAtlassian, formatAsMarkdown } from './formatters';
 import { InputsFormComponent } from './inputs/inputs';
 import { buildInputsSection, createInputsModel, Inputs } from './inputs/inputs.models';
+import { buildExtrasSection, createExtrasModel, ExtraColumns } from './extras/extras.models';
+import { ExtraColumnsFormComponent } from './extras/extras';
 
 @Component({
   selector: 'app-root',
-  imports: [ReactiveFormsModule, InputsFormComponent, ResultTable, MatButton, CdkCopyToClipboard],
+  imports: [
+    ReactiveFormsModule,
+    InputsFormComponent,
+    ExtraColumnsFormComponent,
+    ResultTable,
+    MatButton,
+    CdkCopyToClipboard,
+  ],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
 export class App implements OnInit {
   readonly model = signal({
     inputs: createInputsModel()(),
+    extras: createExtrasModel()(),
   });
 
   readonly form = form(this.model, (s) => {
     buildInputsSection(s.inputs);
+    buildExtrasSection(s.extras);
   });
 
   // TODO: with previous value? https://angular.dev/guide/signals/resource#composing-resources-with-snapshots
@@ -36,15 +47,15 @@ export class App implements OnInit {
     this.model.update((m) => ({ ...m, inputs }));
   }
 
+  updateExtras(extras: ExtraColumns) {
+    this.model.update((m) => ({ ...m, extras }));
+  }
+
   private service = inject(Cartesian);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   protected tableResult = signal<TableResult | null>(null);
-  readonly extraColumns = signal<ExtraColumn[]>([
-    // FIXME: temporary
-    { name: 'Valid?', type: 'checkbox', format: [] },
-    { name: 'Meaning', type: 'text', format: ['bold'] },
-  ]);
+  readonly extraColumns = computed(() => this.model().extras);
   protected markdown = computed(() => {
     const res = this.tableResult();
     return res ? formatAsMarkdown(this.extraColumns(), res.items) : '';
