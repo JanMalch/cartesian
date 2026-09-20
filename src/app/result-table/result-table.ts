@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+import { ResultCache } from './result-cache';
 
 @Component({
   selector: 'app-result-table',
@@ -21,16 +22,22 @@ import { CdkTextareaAutosize } from '@angular/cdk/text-field';
   styleUrl: './result-table.scss',
 })
 export class ResultTable {
+  private readonly cache = new ResultCache();
+
   readonly useCheckColumn = input(true);
   readonly extraColumns = input<ExtraColumn[]>([]);
   readonly cartesianResult = input<CartesianResult | null>(null);
   readonly tableResult = output<TableResult>();
   protected readonly formData = linkedSignal(() => {
+    const results = this.cartesianResult()?.items ?? [];
     const extras = Object.fromEntries(
       this.extraColumns().map((c) => [c.name, c.type === 'checkbox' ? false : '']),
     );
     return {
-      items: (this.cartesianResult()?.items ?? []).map((result) => ({ result, extras })),
+      items: results.map((result) => {
+        const cached = this.cache.get(result);
+        return { result, extras: { ...extras, ...cached } };
+      }),
     };
   });
   protected readonly resultForm = form(this.formData);
@@ -52,6 +59,12 @@ export class ResultTable {
   });
 
   constructor() {
-    effect(() => this.tableResult.emit(this.formData()));
+    effect(() => {
+      const data = this.formData();
+      data.items.forEach(({ result, extras }) => {
+        this.cache.set(result, extras);
+      });
+      return this.tableResult.emit(data);
+    });
   }
 }
