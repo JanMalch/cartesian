@@ -19,7 +19,7 @@ export function formatAsMarkdown(
     checkmark: '✅',
     crossmark: '❌',
     link: (text, url) => `[${text}](${url})`,
-    afterHeaders: (columnCount) => '|' + `---|`.repeat(columnCount),
+    afterHeaders: (columnCount) => '\n|' + `---|`.repeat(columnCount),
   });
 }
 
@@ -64,7 +64,6 @@ function format(
   for (const col of extraColumns) {
     result += ` ${col.name} ${options.headerDelimiter}`;
   }
-  result += '\n';
   result += options.afterHeaders(resultKeys.length + extraColumns.length);
 
   for (const tresult of tableResult) {
