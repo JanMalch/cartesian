@@ -16,24 +16,49 @@
   </section>
 
   <section id="section-inputs">
+    <h2>Inputs</h2>
+    <p>
+      The values for each input can be any kind of text and are not interpreted, so
+      <code>true</code> and <code>false</code> are just examples. Consider describing the
+      <a href="https://en.wikipedia.org/wiki/Equivalence_partitioning" target="_href" rel="noopener"
+        >equivalence classes</a
+      >
+      of your problem domain. For example, when it comes to an input describing a list, you may use
+      <code>empty list</code>, <code>1 item</code>, and <code>2 or more items</code> as values.
+    </p>
     <app-inputs
       [form]="form.inputs"
       [model]="model().inputs"
       (modelChange)="updateInputs($event)"
     ></app-inputs>
   </section>
-</div>
 
-<div id="right">
   <section id="section-extras">
+    <h2>Extras</h2>
+    <p>
+      Define extra columns to show in the table. The format will only be visible in the final
+      markup.
+    </p>
     <app-extras
       [form]="form.extras"
       [model]="model().extras"
       (modelChange)="updateExtras($event)"
     ></app-extras>
   </section>
+</div>
 
+<div id="right">
   <section id="section-results">
+    <h2>Results</h2>
+    <p>
+      This table shows all the possible combinations allowing you to describe each outcome. Anything
+      you enter will be memorized by the <i>exact</i> input label as well as values in each row.
+      <b
+        >So make sure you have all inputs, values, and extra columns properly described, before
+        getting started here.</b
+      >
+    </p>
+
     <app-result-table
       [cartesianResult]="result.value() || null"
       [extraColumns]="extraColumns()"
